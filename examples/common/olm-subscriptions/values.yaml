@@ -1,0 +1,15 @@
+apiVersion: v1
+data:
+    openstack-operator-channel: Fake_sub_channel
+    openstack-operator-display-name: FOOBAR
+    openstack-operator-image: Fake_OOI_image
+    openstack-operator-installplanapproval: Fake_Install_plan
+    openstack-operator-publisher: BAZBAR
+    openstack-operator-subscription-name: openstack-operator-index
+    openstack-operator-subscription-namespace: openstack-operators
+    openstack-operator-version: Fake_version
+kind: ConfigMap
+metadata:
+    annotations:
+        config.kubernetes.io/local-config: 'true'
+    name: olm-values
