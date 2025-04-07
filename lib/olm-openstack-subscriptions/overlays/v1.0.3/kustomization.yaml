@@ -1,0 +1,88 @@
+---
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+resources:
+  - ../../base
+  - ../common
+  - openstack-ansibleee-subscription.yaml
+
+replacements:
+  - source:
+      kind: ConfigMap
+      name: olm-values
+      fieldPath: data.openstack-operator-image
+    targets:
+      - select:
+          kind: CatalogSource
+        fieldPaths:
+          - spec.image
+  - source:
+      kind: ConfigMap
+      name: olm-values
+      fieldPath: data.openstack-operator-installplanapproval
+    targets:
+      - select:
+          kind: Subscription
+          labelSelector: category=openstack-subscription
+        fieldPaths:
+          - spec.installPlanApproval
+  - source:
+      kind: ConfigMap
+      name: olm-values
+      fieldPath: data.openstack-operator-channel
+    targets:
+      - select:
+          kind: Subscription
+        fieldPaths:
+          - spec.channel
+  - source:
+      kind: ConfigMap
+      name: olm-values
+      fieldPath: data.openstack-operator-display-name
+    targets:
+      - select:
+          kind: Subscription
+          labelSelector: category=openstack-operators
+        fieldPaths:
+          - spec.displayName
+  - source:
+      kind: ConfigMap
+      name: olm-values
+      fieldPath: data.openstack-operator-publisher
+    targets:
+      - select:
+          kind: Subscription
+          labelSelector: category=openstack-operators
+        fieldPaths:
+          - spec.publisher
+  - source:
+      kind: ConfigMap
+      name: olm-values
+      fieldPath: data.openstack-operator-subscription-name
+    targets:
+      - select:
+          kind: Subscription
+          labelSelector: category=openstack-operators
+        fieldPaths:
+          - metadata.name
+  - source:
+      kind: ConfigMap
+      name: olm-values
+      fieldPath: data.openstack-operator-subscription-namespace
+    targets:
+      - select:
+          kind: Subscription
+          labelSelector: category=openstack-operators
+        fieldPaths:
+          - metadata.namespace
+  - source:
+      kind: ConfigMap
+      name: olm-values
+      fieldPath: data.openstack-operator-version
+    targets:
+      - select:
+          kind: Subscription
+          labelSelector: category=openstack-subscription
+        fieldPaths:
+          - spec.startingCSV
